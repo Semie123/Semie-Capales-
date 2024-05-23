@@ -1,0 +1,66 @@
+import tkinter
+from tkinter import *
+
+root = Tk()
+root.title("Calculator")
+root.geometry("565x625+100+200")
+root.resizable(False, False)
+root.configure(bg="#17161b")
+
+equation = ""
+
+def show(value):
+    global equation
+    if value == "%":
+        
+        if equation != "" and equation[-1].isdigit():
+            equation += "/100*"  
+    else:
+        equation += value
+    label_result.config(text=equation)
+
+def clear():
+    global equation
+    equation = ""
+    label_result.config(text=equation)
+
+def calculate():
+    global equation
+    result = ""
+    if equation != "":
+        try:
+            
+            equation_with_percentages = equation.replace('%', '/100')
+            result = eval(equation_with_percentages)
+        except:
+            result = "error"
+            equation = ""
+    label_result.config(text=result)
+
+label_result = Label(root, width=25, height=2, text="", font=("arial", 30))
+label_result.pack()
+
+Button(root, text="C", width=3, height=1, font=("arial", 30, "bold"), bd=1, fg="#fff", bg="#3697f5", command=lambda: clear()).place(x=10, y=135)
+Button(root, text="/", width=3, height=1, font=("arial", 30, "bold"), bd=1, fg="#fff", bg="#2a2d36", command=lambda: show("/")).place(x=150, y=135)
+Button(root, text="%", width=3, height=1, font=("arial", 30, "bold"), bd=1, fg="#fff", bg="#2a2d36", command=lambda: show("%")).place(x=290, y=135)
+Button(root, text="x", width=3, height=1, font=("arial", 30, "bold"), bd=1, fg="#fff", bg="#2a2d36", command=lambda: show("*")).place(x=430, y=135)
+
+Button(root, text="7", width=3, height=1, font=("arial", 30, "bold"), bd=1, fg="#fff", bg="#2a2d36", command=lambda: show("7")).place(x=10, y=235)
+Button(root, text="8", width=3, height=1, font=("arial", 30, "bold"), bd=1, fg="#fff", bg="#2a2d36", command=lambda: show("8")).place(x=150, y=235)
+Button(root, text="9", width=3, height=1, font=("arial", 30, "bold"), bd=1, fg="#fff", bg="#2a2d36", command=lambda: show("9")).place(x=290, y=235)
+Button(root, text="-", width=3, height=1, font=("arial", 30, "bold"), bd=1, fg="#fff", bg="#2a2d36", command=lambda: show("-")).place(x=430, y=235)
+
+Button(root, text="4", width=3, height=1, font=("arial", 30, "bold"), bd=1, fg="#fff", bg="#2a2d36", command=lambda: show("4")).place(x=10, y=335)
+Button(root, text="5", width=3, height=1, font=("arial", 30, "bold"), bd=1, fg="#fff", bg="#2a2d36", command=lambda: show("5")).place(x=150, y=335)
+Button(root, text="6", width=3, height=1, font=("arial", 30, "bold"), bd=1, fg="#fff", bg="#2a2d36", command=lambda: show("6")).place(x=290, y=335)
+Button(root, text="+", width=3, height=1, font=("arial", 30, "bold"), bd=1, fg="#fff", bg="#2a2d36", command=lambda: show("+")).place(x=430, y=335)
+
+Button(root, text="1", width=3, height=1, font=("arial", 30, "bold"), bd=1, fg="#fff", bg="#2a2d36", command=lambda: show("1")).place(x=10, y=435)
+Button(root, text="2", width=3, height=1, font=("arial", 30, "bold"), bd=1, fg="#fff", bg="#2a2d36", command=lambda: show("2")).place(x=150, y=435)
+Button(root, text="3", width=3, height=1, font=("arial", 30, "bold"), bd=1, fg="#fff", bg="#2a2d36", command=lambda: show("3")).place(x=290, y=435)
+Button(root, text="0", width=8, height=1, font=("arial", 30, "bold"), bd=1, fg="#fff", bg="#2a2d36", command=lambda: show("0")).place(x=10, y=535)
+
+Button(root, text=".", width=3, height=1, font=("arial", 30, "bold"), bd=1, fg="#fff", bg="#2a2d36", command=lambda: show(".")).place(x=290, y=535)
+Button(root, text="=", width=3, height=3, font=("arial", 30, "bold"), bd=1, fg="#fff", bg="#2a2d36", command=lambda: calculate()).place(x=430, y=422)
+
+root.mainloop()
